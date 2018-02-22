@@ -16,7 +16,8 @@ void draw(){
   if(test1){
   drawTest1();
   }
-  stroke(random(20, 200));
-  noFill();
+
   
+  drawCurvyCircle();
+  noLoop();
 }
