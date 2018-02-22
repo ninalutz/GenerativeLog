@@ -2,13 +2,13 @@ void drawCurvyCircle(){
   background(255);
   int r = height/2 - 50;
   PVector center = new PVector(width/2, height/2);
-  float tolerance = 5;
+  float tolerance = 3;
   stroke(0);
   ArrayList<PVector> points = new ArrayList<PVector>();
   
   beginShape();
   beginContour();
-  for(int i = 0; i<361; i++){
+  for(int i = 0; i<361; i+=1){
     float x = r * cos(radians(i)) + center.x + random(-tolerance, tolerance);
     float y = r * sin(radians(i)) + center.y + random(-tolerance, tolerance);
     points.add(new PVector(x, y));
