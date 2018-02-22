@@ -1,16 +1,22 @@
 //variables for wood
 float branching, age, growthRate, sawAngle, cellSize, burls;
 
+//visual layers for log section
+PVector trunkCenter;
+float trunkRadius;
+boolean test1;
+
 void setup(){
-  size(1200, 900, P3D);
+  size(1920, 1000, P3D);
   background(255);
+  initTest1Values();
 }
 
 void draw(){
-}
-
-
-void drawRings(float trunkRadius){
-  int numRings = floor();
-  for(int i =0; i<numRings; i++){}
+  if(test1){
+  drawTest1();
+  }
+  stroke(random(20, 200));
+  noFill();
+  
 }
