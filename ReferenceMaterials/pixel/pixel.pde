@@ -1,39 +1,33 @@
-// BasedOn
-// http://www.iquilezles.org/www/articles/warp/warp.htm
-// e sul funzionamento di shadertoy (vedi tutorial https://www.shadertoy.com/view/Md23DV) 
 
 float aspectRatio = 1;
 float hueoffset = 0.0;
 boolean doDraw = true;
-bollean clearAndStart = false;
+boolean clearAndStart = false;
 float scale = 5;
+
 void setup() {
+  
   size(800,600);
-//  colorMode(RGB,1,1,1,1);
-  colorMode(HSB,1,1,1,1);
+  colorMode(RGB,1,1,1,1);
 }
 
 
 void draw () {
   aspectRatio = ((float)height/(float)width);
-  // Kool kaat peer
+
   if (doDraw) {
     shade();
     doDraw = false;
-  } else if (clearAndStart) {
-    background(0);
-    doDraw=true;
-    clearAndStart = false;
-  }
+    println("DRAWN");
+  } 
 }
 
-void mouseClicked() {
-  // randomSeed((long)random(100000));
-  noiseSeed();
-  hueoffset = random(1.0);
-  scale = random(3,10);
-  clearAndStart = true;
-  background(0);
+
+void mouseClicked(){
+    noiseSeed(int(random(0, 100)));
+    background(0);
+    doDraw = true;
+    
 }
 
 public void shade() {
@@ -68,6 +62,6 @@ public color mainImage(PVector coord) {
     float v = noise(vb*20, va*20);
     v12 += hueoffset;
     if (v12 > 1) v12 -=1;
-    return color(v12,v21,v,1);  
+    return color(v);  
 
 }

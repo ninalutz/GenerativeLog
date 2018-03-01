@@ -7,21 +7,25 @@ float trunkRadius;
 boolean test1, test2, test3;
 
 void setup(){
-  size(1920, 1000, P3D);
+  size(500, 500);
   background(255);
-  initTest3Values();
-  test3 = true;
+//  initTest3Values();
+  initTest4();
+  test3 = false;
 }
 
 void draw(){
-  if(test1){
-  drawTest1();
-  }
-  if(test2){
-    drawTest2(height/2 - 50,  new PVector(width/2, height/2));
-  }
-  if(test3){
-    drawTest3();
-  }
-  noLoop();
+  background(255);
+//  
+//  if(test1){
+//  drawTest1();
+//  }
+//  if(test2){
+//    drawTest2(height/2 - 50,  new PVector(width/2, height/2));
+//  }
+//  if(test3){
+//    drawTest3();
+//  }
+  drawTest4();
+//  noLoop();
 }

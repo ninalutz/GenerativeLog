@@ -1,4 +1,4 @@
-int nLines = 50;
+int nLines = 500;
 Line[] l;
 Particle[] attractors;
 
@@ -21,7 +21,7 @@ void setup() {
 
 
 void draw() {
-  background(0);
+  background(255);
   
   // move attractors
   attractors[0].update();  
@@ -73,7 +73,7 @@ void mousePressed() {
 class Line {
   ArrayList<Particle> p;
   color col;
-  int nPoints = 100;
+  int nPoints = 200;
   
   Line(int y, float c) {
     p = new ArrayList<Particle>();
@@ -87,7 +87,7 @@ class Line {
   /*-------*/
   
   void display() {  // display line
-    stroke(col);
+    stroke(0);
     beginShape();
     for (int i = 0; i < p.size(); i++) {
       curveVertex(p.get(i).pos.x, p.get(i).pos.y);

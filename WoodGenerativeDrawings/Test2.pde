@@ -1,6 +1,6 @@
 void drawTest2(int r, PVector center){
   float tolerance = map(r, 0, height/2, .4, 2.5);
-  stroke(100, 100, 100, 100);
+  stroke(50, 50, 50, 150);
   ArrayList<PVector> points = new ArrayList<PVector>();
   noFill();
   beginShape();
