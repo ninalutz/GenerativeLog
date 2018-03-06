@@ -1,13 +1,13 @@
 
-float aspectRatio = 1;
+float aspectRatio = 2;
 float hueoffset = 0.0;
 boolean doDraw = true;
 boolean clearAndStart = false;
 float scale = 5;
-
+int a = 0;
 void setup() {
   
-  size(800,600);
+  size(800,800);
   colorMode(RGB,1,1,1,1);
 }
 
@@ -18,13 +18,12 @@ void draw () {
   if (doDraw) {
     shade();
     doDraw = false;
-    println("DRAWN");
   } 
 }
 
 
 void mouseClicked(){
-    noiseSeed(int(random(0, 100)));
+    noiseSeed(a);
     background(0);
     doDraw = true;
     

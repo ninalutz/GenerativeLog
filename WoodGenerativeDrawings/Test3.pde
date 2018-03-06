@@ -6,7 +6,7 @@ void initTest3Values(){
 }
 
 void drawTest3(){
-  int numRings = 300;
+  int numRings = 50;
 
   for(int i = 1; i<numRings; i++){
    drawTest2(int((trunkRadius/numRings)*i), trunkCenter);

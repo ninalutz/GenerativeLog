@@ -1,6 +1,8 @@
 int nLines = 500;
+int nLines2 = 300;
 Line[] l;
 Particle[] attractors;
+int numAttractors = 4;
 
 
 /*=======================*/
@@ -23,17 +25,28 @@ void setup() {
 void draw() {
   background(255);
   
-  // move attractors
-  attractors[0].update();  
-  attractors[1].update();
   
   // interact lines with attractors
-  float radius = 75*cos(frameCount/150.);
+  float radius = 75*cos(frameCount/200.);
   for(int i = 0; i < l.length; i++) {
     l[i].interact(radius, attractors[0].pos.x, attractors[0].pos.y);
     l[i].interact(-radius, attractors[1].pos.x, attractors[1].pos.y);
+    l[i].interact(radius, attractors[2].pos.x, attractors[2].pos.y);
+    l[i].interact(-radius, attractors[3].pos.x, attractors[3].pos.y);
     l[i].display();  // display lines
   }
+  
+  // move attractors
+  fill(255);
+  
+  for(int i =0; i<numAttractors; i++){
+       attractors[i].update();  
+  }
+  //attractors[0].update();  
+  //attractors[1].update();
+  //attractors[2].update();  
+  //attractors[3].update();
+  
 }
 
 
@@ -41,16 +54,14 @@ void draw() {
 
 void initialize() {
   // Create Lines
-  float c0 = random(255);
-  float c1 = random(255);
   l = new Line[nLines];
   for(int i = 0; i < l.length; i++) {
-    float col = lerp(c0, c1, float(i)/l.length);
+    float col = 100*(i%2+1);
     l[i] = new Line(5 + 10*i, col);
   }
   
   // Create Attractors
-  attractors = new Particle[2];
+  attractors = new Particle[numAttractors];
   for (int i = 0; i < attractors.length; i++) {
     attractors[i] = new Particle(random(width), random(height));
     float angle = random(TWO_PI);
@@ -81,17 +92,39 @@ class Line {
       p.add(new Particle(2+5*i, y));
     }
     
-    col = color(c, 100, 255);
+    col = color(c);
   }
   
   /*-------*/
   
   void display() {  // display line
-    stroke(0);
+    stroke(col);
     beginShape();
+    strokeWeight(.5);
     for (int i = 0; i < p.size(); i++) {
       curveVertex(p.get(i).pos.x, p.get(i).pos.y);
     }
+    
+    strokeWeight(.5);
+    for (int i = 0; i < p.size(); i+=2) {
+      curveVertex(p.get(i).pos.x, p.get(i).pos.y + 2);
+    }
+    
+    strokeWeight(.5);
+    for (int i = 0; i < p.size(); i+=2) {
+      curveVertex(p.get(i).pos.x, p.get(i).pos.y + 1);
+    }
+    
+    //strokeWeight(.5);
+    //for (int i = 0; i < p.size(); i++) {
+    //  curveVertex(p.get(i).pos.x, p.get(i).pos.y + 3);
+    //}
+    
+    strokeWeight(.5);
+    for (int i = 0; i < p.size(); i++) {
+      curveVertex(p.get(i).pos.x, p.get(i).pos.y + 4);
+    }
+    
     endShape();
   }
   
@@ -169,6 +202,10 @@ class Particle {
     // check edges
     pos.x = (pos.x + width)%width;
     pos.y = (pos.y + height)%height;
+    for(int i =50; i>0; i-=3){
+      fill(0, 0, 0, 20);
+      stroke(0, 0, 0);
+      //ellipse(pos.x, pos.y, i*2, i);
+    }
   }
 }
-
