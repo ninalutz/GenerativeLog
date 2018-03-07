@@ -2,12 +2,10 @@ int nLines = 500;
 int nLines2 = 300;
 Line[] l;
 Particle[] attractors;
-int numAttractors = 4;
+int numAttractors = 5;
 
 
 /*=======================*/
-
-
 void setup() {
   size(500, 500);
   
@@ -18,10 +16,7 @@ void setup() {
   initialize();
 }
 
-
 /*=======================*/
-
-
 void draw() {
   background(255);
   
@@ -32,7 +27,11 @@ void draw() {
     l[i].interact(radius, attractors[0].pos.x, attractors[0].pos.y);
     l[i].interact(-radius, attractors[1].pos.x, attractors[1].pos.y);
     l[i].interact(radius, attractors[2].pos.x, attractors[2].pos.y);
+    l[i].interact(-radius, attractors[2].pos.x, attractors[2].pos.y);
     l[i].interact(-radius, attractors[3].pos.x, attractors[3].pos.y);
+    l[i].interact(radius, attractors[3].pos.x, attractors[3].pos.y);
+    l[i].interact(-radius, attractors[4].pos.x, attractors[4].pos.y);
+    l[i].interact(radius, attractors[4].pos.x, attractors[4].pos.y);
     l[i].display();  // display lines
   }
   
@@ -42,21 +41,16 @@ void draw() {
   for(int i =0; i<numAttractors; i++){
        attractors[i].update();  
   }
-  //attractors[0].update();  
-  //attractors[1].update();
-  //attractors[2].update();  
-  //attractors[3].update();
   
 }
 
 
 /*=======================*/
-
 void initialize() {
   // Create Lines
   l = new Line[nLines];
   for(int i = 0; i < l.length; i++) {
-    float col = 100*(i%2+1);
+    float col = random(0, 100);
     l[i] = new Line(5 + 10*i, col);
   }
   
@@ -65,7 +59,9 @@ void initialize() {
   for (int i = 0; i < attractors.length; i++) {
     attractors[i] = new Particle(random(width), random(height));
     float angle = random(TWO_PI);
-    attractors[i].vel.set(cos(angle), sin(angle), 0);
+    float angle2 = random(TWO_PI);
+    angle2 = angle;
+    attractors[i].vel.set(cos(angle), sin(angle2), 0);
   }
 }
 
@@ -73,10 +69,15 @@ void initialize() {
 /*=======================*/
 
 
-void mousePressed() {
-  initialize();   
-}
+//void mousePressed() {
+//  initialize();   
+//}
 
+void keyPressed(){
+  if(key == ' '){
+    initialize();
+  }
+}
 
 /*=======================*/
 
@@ -84,7 +85,7 @@ void mousePressed() {
 class Line {
   ArrayList<Particle> p;
   color col;
-  int nPoints = 200;
+  int nPoints = 100;
   
   Line(int y, float c) {
     p = new ArrayList<Particle>();
@@ -98,29 +99,47 @@ class Line {
   /*-------*/
   
   void display() {  // display line
-    stroke(col);
     beginShape();
-    strokeWeight(.5);
+    stroke(col);
+    strokeWeight(.2);
+    
+    //for(int j = -5; j<5; j+=2){
+    //for (int i = 0; i < p.size(); i++) {
+    //  curveVertex(p.get(i).pos.x, p.get(i).pos.y + j);
+    //}
+    //}
+    
+    strokeWeight(.2);
     for (int i = 0; i < p.size(); i++) {
       curveVertex(p.get(i).pos.x, p.get(i).pos.y);
     }
     
-    strokeWeight(.5);
+    strokeWeight(.2);
+    for (int i = 0; i < p.size(); i++) {
+      curveVertex(p.get(i).pos.x, p.get(i).pos.y -1 );
+    }
+    
+    strokeWeight(.2);
     for (int i = 0; i < p.size(); i+=2) {
       curveVertex(p.get(i).pos.x, p.get(i).pos.y + 2);
     }
     
-    strokeWeight(.5);
+    strokeWeight(.2);
+    for (int i = 0; i < p.size(); i++) {
+      curveVertex(p.get(i).pos.x, p.get(i).pos.y - 2 );
+    }
+    
+    strokeWeight(.2);
     for (int i = 0; i < p.size(); i+=2) {
       curveVertex(p.get(i).pos.x, p.get(i).pos.y + 1);
     }
     
-    //strokeWeight(.5);
+    //strokeWeight(.2);
     //for (int i = 0; i < p.size(); i++) {
     //  curveVertex(p.get(i).pos.x, p.get(i).pos.y + 3);
     //}
     
-    strokeWeight(.5);
+    strokeWeight(.2);
     for (int i = 0; i < p.size(); i++) {
       curveVertex(p.get(i).pos.x, p.get(i).pos.y + 4);
     }
@@ -163,7 +182,6 @@ class Particle {
   }
   
   /*-------*/
-  
   void interact(float r0, float x, float y) {  // interact points with attractors
     float sign = r0/abs(r0);
     r0 = abs(r0);
@@ -181,11 +199,10 @@ class Particle {
     pos.add(vel);
   }
   
-  /*-------*/
-  
+  /*-------*/ 
   void update() {  // move attractors
     //change direction sometimes
-    if (random(1) > 0.97) {
+    if (random(1) > 0.4) {
       float angle = random(-PI, PI);
       acc.set(cos(angle), sin(angle), 0);
       
@@ -203,9 +220,10 @@ class Particle {
     pos.x = (pos.x + width)%width;
     pos.y = (pos.y + height)%height;
     for(int i =50; i>0; i-=3){
-      fill(0, 0, 0, 20);
-      stroke(0, 0, 0);
-      //ellipse(pos.x, pos.y, i*2, i);
+     // fill(0 + i, 0 + i, 0 + i, 50);
+     // stroke(0, 0, 0);
+     // ellipse(pos.x, pos.y, i*2, i);
+      //noFill();
     }
   }
 }
